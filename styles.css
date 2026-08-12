@@ -1,0 +1,407 @@
+/* 1. DESIGN TOKENS */
+:root {
+  /* ink & paper */
+  --ink:         #161829;   /* main text */
+  --ink-muted:   #5b5f76;   /* secondary text */
+  --paper:       #f5f6fb;   /* light section background */
+  --surface:     #ffffff;   /* card background */
+  --border:      #e6e7f0;
+
+  /* brand colors */
+  --primary:     #3730a3;   /* deep indigo */
+  --primary-2:   #6d5bd0;   /* lighter violet, used in gradients */
+  --accent:      #12b3a8;   /* teal — used for ticks, links, small highlights */
+  --accent-soft: rgba(18, 179, 168, 0.12);
+
+  /* type */
+  --font-display: 'Sora', sans-serif;
+  --font-body:    'Inter', sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+
+  --radius: 16px;
+  --max-width: 1080px;
+}
+
+/* 2. RESET / BASE */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.65;
+}
+
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.2; }
+
+a { text-decoration: none; color: inherit; }
+
+img { display: block; max-width: 100%; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* 3. NAVBAR */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 40px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.01em;
+}
+
+.nav-links { display: flex; gap: 30px; flex-wrap: wrap; justify-content: flex-end; }
+
+.nav-links a {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--ink-muted);
+  transition: color 0.2s ease;
+}
+
+.nav-links a:hover { color: var(--primary); }
+
+/* 4. HERO */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 90px 40px 60px;
+  background: linear-gradient(135deg, #1c1a49 0%, var(--primary) 55%, var(--primary-2) 100%);
+  color: #ffffff;
+}
+
+/* soft decorative glow blobs, no images */
+.hero::before,
+.hero::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.35;
+  z-index: 0;
+}
+.hero::before {
+  width: 380px; height: 380px;
+  background: var(--accent);
+  top: -140px; right: -80px;
+}
+.hero::after {
+  width: 320px; height: 320px;
+  background: #ffffff;
+  bottom: -160px; left: -60px;
+  opacity: 0.08;
+}
+
+.hero-grid {
+  position: relative;
+  z-index: 1;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 40px;
+  align-items: center;
+  min-height: 60vh;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #b9ffef;
+  margin-bottom: 10px;
+}
+
+.hero-text h1 {
+  font-size: clamp(2.4rem, 5vw, 3.4rem);
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.hero-role {
+  font-size: 1.15rem;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 18px;
+  font-weight: 500;
+}
+
+.hero-bio {
+  max-width: 480px;
+  color: rgba(255, 255, 255, 0.78);
+  margin-bottom: 32px;
+}
+
+.hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 30px; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.92rem;
+  padding: 13px 22px;
+  border-radius: 10px;
+  transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease;
+  border: 2px solid transparent;
+}
+
+.btn-solid {
+  background: var(--accent);
+  color: #062825;
+}
+.btn-solid:hover { transform: translateY(-2px); background: #0ea79d; }
+
+.btn-ghost {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.55);
+  color: #ffffff;
+}
+.btn-ghost:hover { transform: translateY(-2px); border-color: #ffffff; }
+
+/* CV section buttons sit on light background, so they need dark-friendly ghost */
+.cv-buttons .btn-ghost {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+.cv-buttons .btn-ghost:hover { background: var(--primary); color: #ffffff; }
+
+.hero-social { display: flex; align-items: center; gap: 18px; font-size: 1.3rem; }
+.hero-social a { display: inline-flex; align-items: center; color: rgba(255, 255, 255, 0.75); transition: color 0.2s ease, opacity 0.2s ease; }
+.hero-social a:hover { color: var(--accent); }
+
+/* for brand logos that aren't in the icon font (e.g. Codeforces) */
+.social-img {
+  width: 22px;
+  height: 22px;
+  display: inline-block;
+  object-fit: contain;
+  opacity: 0.9;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.social-img:hover { opacity: 1; transform: translateY(-2px); }
+.hero-photo-frame {
+  position: relative;
+  width: 280px;
+  height: 350px;
+}
+
+.hero-photo-frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translate(18px, 18px);
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, var(--accent), #7bf2e6);
+  z-index: 0;
+}
+
+.hero-photo-frame img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius);
+  border: 4px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+}
+
+/* small scroll cue under the hero */
+.scroll-cue {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 26px;
+  height: 42px;
+  margin: 40px auto 0;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  border-radius: 20px;
+}
+.scroll-cue span {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  width: 4px;
+  height: 8px;
+  background: #ffffff;
+  border-radius: 2px;
+  transform: translateX(-50%);
+  animation: scroll-bounce 1.8s ease-in-out infinite;
+}
+@keyframes scroll-bounce {
+  0%, 100% { top: 8px; opacity: 1; }
+  50% { top: 18px; opacity: 0.4; }
+}
+
+/* 5. SECTIONS (shared) */
+.section { padding: 84px 40px; }
+.section-alt { background: var(--surface); }
+
+.section-inner { max-width: var(--max-width); margin: 0 auto; }
+
+/* small monospace "tick" label above every heading — repeated motif */
+.section-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+.section-eyebrow::before {
+  content: "";
+  width: 26px;
+  height: 2px;
+  background: var(--accent);
+}
+
+.section h2 {
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+.section-body {
+  max-width: 640px;
+  color: var(--ink-muted);
+}
+
+/* 6. HOBBIES GRID */
+.hobbies-grid {
+  margin-top: 34px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 22px;
+}
+
+.hobby-card {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 26px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.hobby-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(22, 24, 41, 0.08);
+  border-color: var(--accent);
+}
+
+.hobby-icon {
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 1.15rem;
+  margin-bottom: 16px;
+}
+
+.hobby-card h3 { font-size: 1.02rem; margin-bottom: 6px; }
+.hobby-card p { font-size: 0.9rem; color: var(--ink-muted); }
+
+/* 7. CV PANEL */
+.cv-panel { margin-top: 30px; }
+
+.cv-preview {
+  width: 100%;
+  height: 560px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 14px 34px rgba(22, 24, 41, 0.08);
+  margin-bottom: 22px;
+}
+
+.cv-buttons { display: flex; flex-wrap: wrap; gap: 14px; }
+
+/* 8. CONTACT GRID */
+.contact-grid {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 18px;
+}
+
+.contact-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 22px;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.contact-card i { font-size: 1.3rem; color: var(--accent); }
+
+.contact-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px rgba(22, 24, 41, 0.08);
+  border-color: var(--accent);
+}
+
+/* 9. FOOTER */
+footer {
+  text-align: center;
+  padding: 30px;
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+}
+
+/* 10. RESPONSIVE */
+@media (max-width: 860px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+    min-height: auto;
+    padding-top: 20px;
+  }
+  .hero-bio { margin-left: auto; margin-right: auto; }
+  .hero-actions, .hero-social { justify-content: center; }
+  .hero-photo-wrap { order: -1; }
+  .hero-photo-frame { width: 220px; height: 220px; }
+}
+
+@media (max-width: 600px) {
+  .navbar { padding: 16px 20px; }
+  .nav-links { gap: 16px; }
+  .hero { padding: 50px 20px 40px; }
+  .section { padding: 60px 20px; }
+  .cv-preview { height: 420px; }
+}
+
+/* respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .scroll-cue span { animation: none; }
+}
