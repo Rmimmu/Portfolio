@@ -260,21 +260,20 @@ img { display: block; max-width: 100%; }
 
 /* small monospace "tick" label above every heading — repeated motif */
 .section-eyebrow {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 12px;
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  letter-spacing: 0.08em;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 14px;
-}
-.section-eyebrow::before {
-  content: "";
-  width: 26px;
-  height: 2px;
-  background: var(--accent);
+  color: #ffffff;
+  background: linear-gradient(120deg, var(--primary), var(--accent));
+  padding: 8px 18px 8px 16px;
+  margin-bottom: 20px;
+  clip-path: polygon(0 0, 100% 0, 94% 100%, 0% 100%);
+  box-shadow: 0 8px 18px rgba(55, 48, 163, 0.22);
 }
 
 .section h2 {
